@@ -5,7 +5,7 @@ function showSection(sectionId) {
 }
 
 // Substitua 'https://SUA_URL_DO_RENDER.onrender.com' pela URL real do seu serviço FastAPI no Render
-const API_BASE_URL = 'https://agendamentos-ytzc.onrender.com'; // Assumindo que esta é a URL base do seu serviço Render
+const API_BASE_URL = 'https://agendamento-xf4a.onrender.com'; // Assumindo que esta é a URL base do seu serviço Render
 
 document.getElementById('agendamentoForm').addEventListener('submit', async function(e) {
   e.preventDefault();
