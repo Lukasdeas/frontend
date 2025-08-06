@@ -6,7 +6,7 @@ document.getElementById('agendamentoForm').addEventListener('submit', async func
     const data = Object.fromEntries(formData.entries());
 
     try {
-        const response = await fetch(`${API_BASE_URL}/agendamento`, {
+        const response = await fetch(`${API_BASE_URL}/agendamento/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data),
@@ -31,7 +31,7 @@ async function loadAgendamentos() {
     lista.innerHTML = '<em>Carregando agendamentos...</em>';
 
     try {
-        const res = await fetch(`${API_BASE_URL}/agendamento`, { mode: 'cors' });
+        const res = await fetch(`${API_BASE_URL}/agendamento/`, { mode: 'cors' });
         const agendamentos = await res.json();
         lista.innerHTML = '';
 
