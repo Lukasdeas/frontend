@@ -1,45 +1,48 @@
-// dashboard.js
-const API_BASE_URL = 'https://agendamento-nslh.onrender.com'; // URL do seu backend no Render
+const API_BASE_URL = 'https://agendamento-nslh.onrender.com';
 
 document.getElementById('agendamentoForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-
     const formData = new FormData(this);
     const data = Object.fromEntries(formData.entries());
 
-    const response = await fetch(`${API_BASE_URL}/agendamento`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data),
-        mode: 'cors' // ✅ essencial
-    });
+    try {
+        const response = await fetch(`${API_BASE_URL}/agendamento`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+            mode: 'cors'
+        });
 
-    if (response.ok) {
-        alert('Agendamento realizado com sucesso!');
-        this.reset();
-        loadAgendamentos(); // Recarregar a lista de agendamentos após um novo agendamento
-    } else {
-        alert('Erro ao agendar. Verifique os dados e tente novamente.');
+        if (response.ok) {
+            alert('✅ Agendamento realizado com sucesso!');
+            this.reset();
+            loadAgendamentos();
+        } else {
+            const err = await response.json();
+            alert(`❌ Erro ao agendar: ${err.detail || 'Verifique os dados.'}`);
+        }
+    } catch (error) {
+        alert(`❌ Erro na conexão: ${error.message}`);
     }
 });
 
-
-// Função para buscar e exibir agendamentos
 async function loadAgendamentos() {
     const lista = document.getElementById('listaAgendamentos');
-    lista.innerHTML = ''; // Limpa a lista antes de recarregar
+    lista.innerHTML = '<em>Carregando agendamentos...</em>';
 
-    const res = await fetch(`${API_BASE_URL}/agendamento`);
-    const agendamentos = await res.json();
+    try {
+        const res = await fetch(`${API_BASE_URL}/agendamento`, { mode: 'cors' });
+        const agendamentos = await res.json();
+        lista.innerHTML = '';
 
-    agendamentos.forEach(item => {
-        const div = document.createElement('div');
-        div.textContent = `${item.data} - ${item.hora} | ${item.paciente} (${item.status})`;
-        lista.appendChild(div);
-    });
+        agendamentos.forEach(item => {
+            const div = document.createElement('div');
+            div.textContent = `${item.data} - ${item.hora} | ${item.paciente} (${item.status})`;
+            lista.appendChild(div);
+        });
+    } catch (error) {
+        lista.innerHTML = '<strong>Erro ao carregar agendamentos.</strong>';
+    }
 }
 
-// Buscar agendamentos ao carregar a página
 window.addEventListener('load', loadAgendamentos);
