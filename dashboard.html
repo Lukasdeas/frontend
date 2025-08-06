@@ -1,0 +1,53 @@
+<!-- dashboard.html: Menu com Agendar e Visualizar -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - Cirurgias</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-item" onclick="showSection('agendar')">
+      <i class="fas fa-calendar-plus"></i>
+      <span>Agendar Cirurgia</span>
+    </div>
+    <div class="nav-item" onclick="showSection('visualizar')">
+      <i class="fas fa-list"></i>
+      <span>Visualizar Agendados</span>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Agendar Cirurgia -->
+    <section id="agendar" class="active-section">
+      <h2>Agendar Cirurgia</h2>
+      <form id="agendamentoForm">
+        <input type="date" name="data" required />
+        <input type="time" name="hora" required />
+        <input type="text" name="sala" placeholder="Sala" required />
+        <input type="text" name="medico" placeholder="Médico" required />
+        <input type="text" name="paciente" placeholder="Paciente" required />
+        <input type="text" name="convenio" placeholder="Convênio" required />
+        <select name="status" required>
+          <option value="agendado">🟨 Agendado</option>
+          <option value="realizado">🟩 Realizado</option>
+          <option value="reagendado">🟧 Reagendado</option>
+          <option value="cancelado">🟥 Cancelado</option>
+        </select>
+        <button type="submit">Agendar</button>
+      </form>
+    </section>
+
+    <!-- Visualizar Cirurgias -->
+    <section id="visualizar">
+      <h2>Cirurgias Agendadas</h2>
+      <div id="listaAgendamentos"></div>
+    </section>
+  </main>
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
