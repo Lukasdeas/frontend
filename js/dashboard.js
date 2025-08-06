@@ -1,5 +1,5 @@
 // dashboard.js
-const API_BASE_URL = 'https://agendamento-xf4a.onrender.com'; // URL do seu backend no Render
+const API_BASE_URL = 'https://agendamento-mb7q.onrender.com'; // URL do seu backend no Render
 
 document.getElementById('agendamentoForm').addEventListener('submit', async function(e) {
     e.preventDefault();
