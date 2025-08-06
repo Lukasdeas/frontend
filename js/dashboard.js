@@ -3,13 +3,17 @@ const API_BASE_URL = 'https://agendamento-nslh.onrender.com'; // URL do seu back
 
 document.getElementById('agendamentoForm').addEventListener('submit', async function(e) {
     e.preventDefault();
+
     const formData = new FormData(this);
     const data = Object.fromEntries(formData.entries());
 
     const response = await fetch(`${API_BASE_URL}/agendamento`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+        mode: 'cors' // ✅ essencial
     });
 
     if (response.ok) {
@@ -20,6 +24,7 @@ document.getElementById('agendamentoForm').addEventListener('submit', async func
         alert('Erro ao agendar. Verifique os dados e tente novamente.');
     }
 });
+
 
 // Função para buscar e exibir agendamentos
 async function loadAgendamentos() {
